@@ -80,24 +80,6 @@ public class ApplicationManager {
         wd.findElement(By.linkText("home page")).click();
     }
 
-    private boolean isElementPresent(By by) {
-        try {
-            wd.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    private boolean isAlertPresent() {
-        try {
-            wd.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
     public GroupHelper getGroupHelper() {
         return groupHelper;
     }
