@@ -29,7 +29,22 @@ public class ContactCreationTests {
 
     @Test
     public void testContactCreation() {
-        wd.findElement(By.linkText("add new")).click();
+        initContactCreation();
+        fillContactForm();
+        selectContactGroup();
+        submitContactCreation();
+    }
+
+    private void submitContactCreation() {
+        wd.findElement(By.name("submit")).click();
+    }
+
+    private void selectContactGroup() {
+        wd.findElement(By.name("new_group")).click();
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("Golubtsova_TestGroup");
+    }
+
+    private void fillContactForm() {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys("FirstTestName1");
@@ -54,9 +69,10 @@ public class ContactCreationTests {
         wd.findElement(By.name("byear")).click();
         wd.findElement(By.name("byear")).clear();
         wd.findElement(By.name("byear")).sendKeys("1991");
-        wd.findElement(By.name("new_group")).click();
-        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("Golubtsova_TestGroup");
-        wd.findElement(By.name("submit")).click();
+    }
+
+    private void initContactCreation() {
+        wd.findElement(By.linkText("add new")).click();
     }
 
     @AfterClass(alwaysRun = true)
