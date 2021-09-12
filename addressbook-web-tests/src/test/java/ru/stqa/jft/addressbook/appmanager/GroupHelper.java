@@ -28,11 +28,19 @@ public class GroupHelper extends HelperBase {
         click(By.name("new"));
     }
 
-    public void selectGroupForDeletion(String groupName) {
+    public void selectGroupByName(String groupName) {
         click(By.xpath("//span[(text()='"+groupName+"')]/input[@type='checkbox']"));
     }
 
     public void initGroupDeletion() {
         click(By.name("delete"));
+    }
+
+    public void initGroupEditing() {
+        click(By.name("edit"));
+    }
+
+    public void submitGroupEditing() {
+        click(By.name("update"));
     }
 }
