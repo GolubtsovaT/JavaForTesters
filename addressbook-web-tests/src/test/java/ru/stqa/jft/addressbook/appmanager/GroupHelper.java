@@ -27,4 +27,12 @@ public class GroupHelper extends HelperBase {
     public void initGroupCreation() {
         click(By.name("new"));
     }
+
+    public void selectGroupForDeletion(String groupName) {
+        click(By.xpath("//span[(text()='"+groupName+"')]/input[@type='checkbox']"));
+    }
+
+    public void initGroupDeletion() {
+        click(By.name("delete"));
+    }
 }
