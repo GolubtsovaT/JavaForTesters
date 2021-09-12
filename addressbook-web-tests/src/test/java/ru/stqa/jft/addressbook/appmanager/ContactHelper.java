@@ -32,4 +32,16 @@ public class ContactHelper extends HelperBase{
     public void submitContactCreation() {
         click(By.name("submit"));
     }
+
+    public void selectContactByEmail(String email) {
+        click(By.cssSelector("input[accept='"+email+"']"));
+    }
+
+    public void initContactDeletion() {
+        click(By.cssSelector("input[value='Delete']"));
+    }
+
+    public void submitContactDeletion() {
+        wd.switchTo().alert().accept();
+    }
 }

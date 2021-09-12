@@ -13,7 +13,11 @@ public class NavigationHelper extends HelperBase {
         click(By.linkText("groups"));
     }
 
-    public void gotoHomePage() {
+    public void returnToHomePage() {
         wd.findElement(By.linkText("home page")).click();
+    }
+
+    public void gotoHomePage() {
+        click(By.linkText("home"));
     }
 }

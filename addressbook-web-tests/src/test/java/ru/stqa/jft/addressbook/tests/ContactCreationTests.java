@@ -13,6 +13,6 @@ public class ContactCreationTests extends TestBase{
         app.getContactHelper().fillContactForm(contactDataSet);
         app.getContactHelper().selectContactGroup(contactDataSet);
         app.getContactHelper().submitContactCreation();
-        app.getNavigationHelper().gotoHomePage();
+        app.getNavigationHelper().returnToHomePage();
     }
 }
