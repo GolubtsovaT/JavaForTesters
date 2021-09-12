@@ -44,4 +44,12 @@ public class ContactHelper extends HelperBase{
     public void submitContactDeletion() {
         wd.switchTo().alert().accept();
     }
+
+    public void initContactEditingByEmail(String email) {
+        click(By.xpath("//td[contains(.,'"+email+"')]/..//*[@title='Edit']/.."));
+    }
+
+    public void submitContactEditing() {
+        click(By.name("update"));
+    }
 }
