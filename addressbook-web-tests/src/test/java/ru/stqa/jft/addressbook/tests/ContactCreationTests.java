@@ -5,12 +5,14 @@ import ru.stqa.jft.addressbook.model.ContactData;
 
 public class ContactCreationTests extends TestBase{
 
+    ContactData contactDataSet = new ContactData("FirstTestName1", "LastTestName1", "Some Company", "14801112233", "testmail@test.test", "1", "October", "1991", "Golubtsova_TestGroup");
+
     @Test
     public void testContactCreation() {
-        app.initContactCreation();
-        app.fillContactForm(new ContactData("FirstTestName1", "LastTestName1", "Some Company", "14801112233", "testmail@test.test", "1", "October", "1991"));
-        app.selectContactGroup();
-        app.submitContactCreation();
-        app.gotoHomePage();
+        app.getContactHelper().initContactCreation();
+        app.getContactHelper().fillContactForm(contactDataSet);
+        app.getContactHelper().selectContactGroup(contactDataSet);
+        app.getContactHelper().submitContactCreation();
+        app.getNavigationHelper().gotoHomePage();
     }
 }
