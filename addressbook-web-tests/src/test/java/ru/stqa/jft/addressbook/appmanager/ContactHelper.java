@@ -2,6 +2,7 @@ package ru.stqa.jft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import ru.stqa.jft.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase{
@@ -14,7 +15,7 @@ public class ContactHelper extends HelperBase{
         click(By.linkText("add new"));
     }
 
-    public void fillContactForm(ContactData contactData) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("company"), contactData.getCompany());
@@ -23,10 +24,11 @@ public class ContactHelper extends HelperBase{
         select(By.name("bday"), contactData.getBday());
         select(By.name("bmonth"), contactData.getBmonth());
         type(By.name("byear"), contactData.getByear());
-    }
-
-    public void selectContactGroup(ContactData contactData) {
-        select(By.name("new_group"), contactData.getContactGroup());
+        if (creation) {
+            select(By.name("new_group"), contactData.getContactGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")), "Field 'Group' is detected");
+        }
     }
 
     public void submitContactCreation() {
