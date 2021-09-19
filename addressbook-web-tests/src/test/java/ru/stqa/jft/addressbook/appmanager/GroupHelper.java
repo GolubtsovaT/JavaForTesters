@@ -32,6 +32,10 @@ public class GroupHelper extends HelperBase {
         click(By.xpath("//span[(text()='"+groupName+"')]/input[@type='checkbox']"));
     }
 
+    public void selectFirstGroup() {
+        click(By.cssSelector("input[type=checkbox]"));
+    }
+
     public void initGroupDeletion() {
         click(By.name("delete"));
     }

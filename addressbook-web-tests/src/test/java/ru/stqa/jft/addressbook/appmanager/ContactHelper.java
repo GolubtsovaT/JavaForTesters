@@ -37,6 +37,10 @@ public class ContactHelper extends HelperBase{
         click(By.cssSelector("input[accept='"+email+"']"));
     }
 
+    public void selectFirstContact() {
+        click(By.cssSelector(".center > input"));
+    }
+
     public void initContactDeletion() {
         click(By.cssSelector("input[value='Delete']"));
     }
@@ -45,8 +49,12 @@ public class ContactHelper extends HelperBase{
         wd.switchTo().alert().accept();
     }
 
-    public void initContactEditingByEmail(String email) {
+    public void initEditingContactByEmail(String email) {
         click(By.xpath("//td[contains(.,'"+email+"')]/..//*[@title='Edit']/.."));
+    }
+
+    public void initEditingFirstContact() {
+        click(By.cssSelector(".center [title=Edit]"));
     }
 
     public void submitContactEditing() {
