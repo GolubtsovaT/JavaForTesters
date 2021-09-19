@@ -11,6 +11,10 @@ public class ContactHelper extends HelperBase{
         super(wd);
     }
 
+    public void returnToHomePage() {
+        click(By.linkText("home page"));
+    }
+
     public void initContactCreation() {
         click(By.linkText("add new"));
     }
@@ -35,10 +39,6 @@ public class ContactHelper extends HelperBase{
         click(By.name("submit"));
     }
 
-    public void selectContactByEmail(String email) {
-        click(By.cssSelector("input[accept='"+email+"']"));
-    }
-
     public void selectFirstContact() {
         click(By.cssSelector(".center > input"));
     }
@@ -51,15 +51,31 @@ public class ContactHelper extends HelperBase{
         wd.switchTo().alert().accept();
     }
 
-    public void initEditingContactByEmail(String email) {
-        click(By.xpath("//td[contains(.,'"+email+"')]/..//*[@title='Edit']/.."));
-    }
-
     public void initEditingFirstContact() {
         click(By.cssSelector(".center [title=Edit]"));
     }
 
     public void submitContactEditing() {
         click(By.name("update"));
+    }
+
+    public void createContact(ContactData contact, boolean creation) {
+        initContactCreation();
+        fillContactForm(contact, creation);
+        submitContactCreation();
+        returnToHomePage();
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent((By.cssSelector(".center > input")));
+    }
+
+    //deprecated
+    public void initEditingContactByEmail(String email) {
+        click(By.xpath("//td[contains(.,'"+email+"')]/..//*[@title='Edit']/.."));
+    }
+
+    public void selectContactByEmail(String email) {
+        click(By.cssSelector("input[accept='"+email+"']"));
     }
 }

@@ -8,6 +8,9 @@ public class GroupEditingTests extends TestBase{
     @Test
     public void testGroupEditing() {
         app.getNavigationHelper().gotoGroupPage();
+        if (! app.getGroupHelper().isThereAGroup(null)) {
+            app.getGroupHelper().createGroup(new GroupData("NewTestGroup", "test1", "test2"));
+        }
         app.getGroupHelper().selectFirstGroup();
         app.getGroupHelper().initGroupEditing();
         app.getGroupHelper().fillGroupForm(new GroupData("EditedTestGroup", "editTest1", "editTest2"));

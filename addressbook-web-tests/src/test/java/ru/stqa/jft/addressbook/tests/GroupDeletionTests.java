@@ -1,12 +1,16 @@
 package ru.stqa.jft.addressbook.tests;
 
 import org.testng.annotations.Test;
+import ru.stqa.jft.addressbook.model.GroupData;
 
 public class GroupDeletionTests extends TestBase {
 
     @Test
     public void testGroupDeletion() {
         app.getNavigationHelper().gotoGroupPage();
+        if (! app.getGroupHelper().isThereAGroup(null)) {
+            app.getGroupHelper().createGroup(new GroupData("NewTestGroup", "test1", "test2"));
+        }
         app.getGroupHelper().selectFirstGroup();
         app.getGroupHelper().initGroupDeletion();
         app.getGroupHelper().returnToGroupPage();

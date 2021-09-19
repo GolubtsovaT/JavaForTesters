@@ -28,12 +28,8 @@ public class GroupHelper extends HelperBase {
         click(By.name("new"));
     }
 
-    public void selectGroupByName(String groupName) {
-        click(By.xpath("//span[(text()='"+groupName+"')]/input[@type='checkbox']"));
-    }
-
     public void selectFirstGroup() {
-        click(By.cssSelector("input[type=checkbox]"));
+        click(By.name("selected[]"));
     }
 
     public void initGroupDeletion() {
@@ -46,5 +42,25 @@ public class GroupHelper extends HelperBase {
 
     public void submitGroupEditing() {
         click(By.name("update"));
+    }
+
+    public void createGroup(GroupData group) {
+        initGroupCreation();
+        fillGroupForm(group);
+        submitGroupCreation();
+        returnToGroupPage();
+    }
+
+    public boolean isThereAGroup(String name) {
+        if (name != null) {
+            return isElementPresent((By.xpath("//input[@title='Select ("+name+")']")));
+        } else {
+            return isElementPresent((By.name("selected[]")));
+        }
+    }
+
+    //deprecated
+    public void selectGroupByName(String groupName) {
+        click(By.xpath("//span[(text()='" + groupName + "')]/input[@type='checkbox']"));
     }
 }
