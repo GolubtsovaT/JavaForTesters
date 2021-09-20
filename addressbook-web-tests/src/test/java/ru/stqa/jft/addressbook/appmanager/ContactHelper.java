@@ -39,8 +39,8 @@ public class ContactHelper extends HelperBase{
         click(By.name("submit"));
     }
 
-    public void selectFirstContact() {
-        click(By.cssSelector(".center > input"));
+    public void selectContact(int index) {
+        wd.findElements(By.cssSelector(".center > input")).get(index).click();
     }
 
     public void initContactDeletion() {
@@ -51,8 +51,8 @@ public class ContactHelper extends HelperBase{
         wd.switchTo().alert().accept();
     }
 
-    public void initEditingFirstContact() {
-        click(By.cssSelector(".center [title=Edit]"));
+    public void initEditingContact(int index) {
+        wd.findElements(By.cssSelector(".center [title=Edit]")).get(index).click();;
     }
 
     public void submitContactEditing() {
@@ -68,6 +68,10 @@ public class ContactHelper extends HelperBase{
 
     public boolean isThereAContact() {
         return isElementPresent((By.cssSelector(".center > input")));
+    }
+
+    public int getContactCount() {
+        return wd.findElements(By.cssSelector(".center > input")).size();
     }
 
     //deprecated

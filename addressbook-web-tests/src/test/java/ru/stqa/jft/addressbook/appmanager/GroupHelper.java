@@ -28,8 +28,8 @@ public class GroupHelper extends HelperBase {
         click(By.name("new"));
     }
 
-    public void selectFirstGroup() {
-        click(By.name("selected[]"));
+    public void selectGroup(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void initGroupDeletion() {
@@ -57,6 +57,10 @@ public class GroupHelper extends HelperBase {
         } else {
             return isElementPresent((By.name("selected[]")));
         }
+    }
+
+    public int getGroupCount() {
+        return wd.findElements(By.name("selected[]")).size();
     }
 
     //deprecated
