@@ -2,8 +2,13 @@ package ru.stqa.jft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.stqa.jft.addressbook.model.ContactData;
+import ru.stqa.jft.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase{
 
@@ -70,8 +75,15 @@ public class ContactHelper extends HelperBase{
         return isElementPresent((By.cssSelector(".center > input")));
     }
 
-    public int getContactCount() {
-        return wd.findElements(By.cssSelector(".center > input")).size();
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+        List<WebElement> elements = wd.findElements(By.xpath("//*[@href[contains(.,'mailto:')]]"));
+        for (WebElement element : elements) {
+            String email = element.getText();
+            ContactData contact = new ContactData (null, null,null,null, email,null,null,null,null);
+            contacts.add(contact);
+        }
+        return contacts;
     }
 
     //deprecated
@@ -81,5 +93,9 @@ public class ContactHelper extends HelperBase{
 
     public void selectContactByEmail(String email) {
         click(By.cssSelector("input[accept='"+email+"']"));
+    }
+
+    public int getContactCount() {
+        return wd.findElements(By.cssSelector(".center > input")).size();
     }
 }
