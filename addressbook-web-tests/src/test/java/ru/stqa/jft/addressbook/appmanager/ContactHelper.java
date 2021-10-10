@@ -6,8 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.stqa.jft.addressbook.model.ContactData;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase{
 
@@ -43,8 +44,8 @@ public class ContactHelper extends HelperBase{
         click(By.name("submit"));
     }
 
-    public void selectContact(int index) {
-        wd.findElements(By.cssSelector(".center > input")).get(index).click();
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector(".center > input[value = '" + id + "']")).click();
     }
 
     public void initContactDeletion() {
@@ -55,8 +56,8 @@ public class ContactHelper extends HelperBase{
         wd.switchTo().alert().accept();
     }
 
-    public void initEditingContact(int index) {
-        wd.findElements(By.cssSelector(".center [title=Edit]")).get(index).click();
+    public void initEditingContactById(int id) {
+        wd.findElement(By.cssSelector("a[href=\"edit.php?id=" + id + "\"]")).click();
     }
 
     public void submitContactEditing() {
@@ -70,21 +71,21 @@ public class ContactHelper extends HelperBase{
         returnToHomePage();
     }
 
-    public void edit(int index, ContactData contact) {
-       initEditingContact(index);
+    public void edit(ContactData contact) {
+        initEditingContactById(contact.getId());
         fillContactForm(contact, false);
         submitContactEditing();
         returnToHomePage();
     }
 
-    public void delete(int index) {
-        selectContact(index);
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
         initContactDeletion();
         submitContactDeletion();
     }
 
-    public List<ContactData> list() {
-        List<ContactData> contacts = new ArrayList<>();
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
             String firstname = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
