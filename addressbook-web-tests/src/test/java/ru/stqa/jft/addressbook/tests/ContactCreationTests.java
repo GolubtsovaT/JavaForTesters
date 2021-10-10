@@ -14,7 +14,7 @@ public class ContactCreationTests extends TestBase{
     public void ensurePreconditions() {
         app.goTo().groupPage();
         if (! app.group().isThereAGroup("Golubtsova_TestGroup")) {
-            app.group().create(new GroupData("Golubtsova_TestGroup", null, null));
+            app.group().create(new GroupData().withName("Golubtsova_TestGroup"));
         }
     }
 
@@ -22,7 +22,9 @@ public class ContactCreationTests extends TestBase{
     public void testContactCreation() {
         app.goTo().homePage();
         List<ContactData> before = app.contact().list();
-        ContactData contact = new ContactData ("FirstTestName1", "LastTestName1", "Some Company", "14801112233", "testmail@test.test", "1", "October", "1991", "Golubtsova_TestGroup");
+        ContactData contact = new ContactData()
+                .withFirstname("FirstTestName1").withLastname("LastTestName1").withCompany("Some Company")
+                .withMobile("14801112233").withEmail("testmail@test.test").withBday("1").withBmonth("October").withByear("1991").withGroup("Golubtsova_TestGroup");
         app.contact().create(contact, true);
         List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() + 1);
