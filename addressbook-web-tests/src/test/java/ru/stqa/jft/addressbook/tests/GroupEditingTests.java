@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.stqa.jft.addressbook.model.GroupData;
 import ru.stqa.jft.addressbook.model.Groups;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
@@ -26,8 +27,8 @@ public class GroupEditingTests extends TestBase{
         GroupData group = new GroupData()
                 .withId(editedGroup.getId()).withName("EditedTestGroup").withHeader("editTest1").withFooter("editTest2");
         app.group().edit(group);
+        assertThat(app.group().count(), equalTo(before.size()));
         Groups after = app.group().all();
-        assertEquals(after.size(), before.size());
         assertThat(after, CoreMatchers.equalTo(before.without(editedGroup).withAdded(group)));
     }
 }

@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.stqa.jft.addressbook.model.ContactData;
 import ru.stqa.jft.addressbook.model.Contacts;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
@@ -28,8 +29,8 @@ public class ContactEditingTests extends TestBase{
                 .withId(editedContact.getId()).withFirstname("EditedFirstName1").withLastname("EditedLastName1").withCompany("New Some Company")
                 .withEmail("newtestmail@test.test").withBday("5").withBmonth("January").withByear("1997");
         app.contact().edit(contact);
+        assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.contact().all();
-        assertEquals(after.size(), before.size());
         assertThat(after, CoreMatchers.equalTo(before.without(editedContact).withAdded(contact)));
     }
 }
