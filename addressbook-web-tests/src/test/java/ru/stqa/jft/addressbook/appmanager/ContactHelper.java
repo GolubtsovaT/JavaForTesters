@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.stqa.jft.addressbook.model.ContactData;
-import ru.stqa.jft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +56,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void initEditingContact(int index) {
-        wd.findElements(By.cssSelector(".center [title=Edit]")).get(index).click();;
+        wd.findElements(By.cssSelector(".center [title=Edit]")).get(index).click();
     }
 
     public void submitContactEditing() {
@@ -77,10 +76,12 @@ public class ContactHelper extends HelperBase{
 
     public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<>();
-        List<WebElement> elements = wd.findElements(By.xpath("//*[@href[contains(.,'mailto:')]]"));
+        List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
-            String email = element.getText();
-            ContactData contact = new ContactData (null, null,null,null, email,null,null,null,null);
+            String firstname = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            String lastname = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
+            int id = Integer.parseInt(element.findElement(By.cssSelector(".center > input")).getAttribute("value"));
+            ContactData contact = new ContactData (id, firstname, lastname,null,null, null,null,null,null,null);
             contacts.add(contact);
         }
         return contacts;
